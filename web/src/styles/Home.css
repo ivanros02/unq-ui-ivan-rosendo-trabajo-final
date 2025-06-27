@@ -1,0 +1,48 @@
+.home__logo {
+    max-width: 160px;
+    height: auto;
+}
+
+.home__title {
+    letter-spacing: 0.1em;
+}
+
+.home__buttons {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Botones custom */
+.btn-custom-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+    transition: all 0.2s ease;
+}
+
+.btn-custom-primary:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+.btn-custom-secondary {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-white);
+    transition: all 0.2s ease;
+}
+
+.btn-custom-secondary:hover {
+    background-color: var(--color-secondary-hover);
+    border-color: var(--color-secondary-hover);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+    .home__logo {
+        max-width: 200px;
+    }
+}

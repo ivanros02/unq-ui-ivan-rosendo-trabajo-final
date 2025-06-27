@@ -1,0 +1,16 @@
+.modal-custom-overlay {
+  background-color: var(--color-overlay);
+}
+
+.btn-custom-outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-custom-outline:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}

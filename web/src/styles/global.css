@@ -1,0 +1,27 @@
+:root {
+  --color-primary: #b12a1c;
+  --color-primary-hover: #8e2118;
+  --color-secondary: #6c757d;
+  --color-secondary-hover: #545b62;
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-white: #ffffff;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-border: #ddd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  background: var(--color-white);
+}
+
+button {
+  font-family: inherit;
+}
