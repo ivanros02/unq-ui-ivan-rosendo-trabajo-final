@@ -6,6 +6,7 @@
   --color-text: #333;
   --color-text-light: #666;
   --color-white: #ffffff;
+  --color-background: #f8f9fa;
   --color-overlay: rgba(0, 0, 0, 0.5);
   --color-border: #ddd;
 }
@@ -19,7 +20,7 @@
 body {
   font-family: system-ui, sans-serif;
   line-height: 1.6;
-  background: var(--color-white);
+  background: var(--color-background);
 }
 
 button {

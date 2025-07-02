@@ -1,43 +1,77 @@
-import '../styles/DifficultyModal.css'
-
-const difficulties = ['Fácil', 'Media', 'Difícil']
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import '../styles/DifficultyModal.css' // Assuming you have a CSS file for styling
+import { API_ENDPOINTS } from '../utils/constants'
 
 export default function DifficultyModal({ isOpen, onClose, onSelect }) {
-  if (!isOpen) return null
+  const [difficulties, setDifficulties] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchDifficulties()
+    }
+  }, [isOpen])
+
+  const fetchDifficulties = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await axios.get(API_ENDPOINTS.difficulties)
+      setDifficulties(response.data)
+    } catch (err) {
+      setError('Error al cargar dificultades')
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSelect = (difficulty) => {
-    onSelect(difficulty.toLowerCase())
+    onSelect(difficulty)
     onClose()
   }
 
+  if (!isOpen) return null
+
   return (
-    <div 
-      className="modal d-block modal-custom-overlay" 
-      onClick={onClose}
-    >
+    <div className="modal d-block modal-custom-overlay" onClick={onClose}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
-            <h5 className="modal-title">Seleccionar dificultad</h5>
-            <button 
-              type="button" 
-              className="btn-close" 
-              onClick={onClose}
-            ></button>
+            <h5 className="modal-title">Select difficulty</h5>
+            <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
-          
+
           <div className="modal-body">
-            <div className="d-grid gap-2">
-              {difficulties.map((difficulty) => (
-                <button
-                  key={difficulty}
-                  className="btn btn-custom-outline"
-                  onClick={() => handleSelect(difficulty)}
-                >
-                  {difficulty}
-                </button>
-              ))}
-            </div>
+            {loading && (
+              <div className="text-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Charging...</span>
+                </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+
+            {!loading && !error && (
+              <div className="d-grid gap-2">
+                {difficulties.map((difficulty) => (
+                  <button
+                    key={difficulty.id}
+                    className="btn btn-custom-outline"
+                    onClick={() => handleSelect(difficulty)}
+                  >
+                    {difficulty.name}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
