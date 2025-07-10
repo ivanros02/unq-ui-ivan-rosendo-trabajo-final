@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import '../styles/DifficultyModal.css' // Assuming you have a CSS file for styling
+import '../styles/DifficultyModal.css'
 import { API_ENDPOINTS } from '../utils/constants'
 
 export default function DifficultyModal({ isOpen, onClose, onSelect }) {

@@ -34,28 +34,40 @@ export default function Home() {
     }
 
     return (
-        <div>
-            <main className="vh-100 d-flex flex-column justify-content-center align-items-center p-4">
+        <div className="home-container">
+            <main className="vh-100 d-flex flex-column justify-content-center align-items-center p-4 position-relative">
                 <img src="/logo.png" alt="Logo" className="home__logo mb-4" />
 
-                <div className="text-center mb-4">
+                <div className="text-center">
                     <h1 className="display-3 fw-bold mb-2 home__title">WORDLE UNQ</h1>
-                    <p className="text-muted fs-5">Guess the word in 6 attempts</p>
+                    <p className="fs-5">Guess the word in 6 attempts</p>
                 </div>
 
                 {selectedDifficulty && (
-                    <p className="text-muted mb-3">Selected difficulty: {selectedDifficulty.name}</p>
+                    <div className="mb-3">
+                        <span className="rounded-pill">
+                            Difficulty: {selectedDifficulty.name}
+                        </span>
+                    </div>
                 )}
 
                 <div className="d-flex flex-column gap-3 home__buttons">
                     <button
-                        className="btn btn-lg btn-custom-primary"
+                        className="btn btn-lg btn-custom-primary position-relative"
                         onClick={handlePlay}
                         disabled={loading}
                     >
+                        {loading && (
+                            <span className="spinner-border spinner-border-sm me-2" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </span>
+                        )}
                         {loading ? 'Creating session...' : 'Play'}
                     </button>
-                    <button className="btn btn-lg btn-custom-secondary" onClick={() => setIsModalOpen(true)}>
+                    <button
+                        className="btn btn-lg btn-custom-secondary"
+                        onClick={() => setIsModalOpen(true)}
+                    >
                         {selectedDifficulty ? 'Change difficulty' : 'Select difficulty'}
                     </button>
                 </div>

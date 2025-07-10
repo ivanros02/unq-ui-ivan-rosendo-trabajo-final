@@ -1,3 +1,4 @@
+// me ayuda a retornar el color de la celda según el estado
 const getCellClass = (status) => {
     const baseClass = 'd-flex align-items-center justify-content-center border border-2 fw-bold text-uppercase'
     
@@ -9,6 +10,7 @@ const getCellClass = (status) => {
     }
 }
 
+// solo representa una celda del juego
 const GameCell = ({ letter, status }) => (
     <div
         className={getCellClass(status)}
@@ -18,6 +20,7 @@ const GameCell = ({ letter, status }) => (
     </div>
 )
 
+// representa una fila del juego, que contiene varias celdas
 const GameRow = ({ attempt, wordLength }) => (
     <div className="d-flex gap-2 mb-2">
         {Array.from({ length: wordLength }, (_, j) => {

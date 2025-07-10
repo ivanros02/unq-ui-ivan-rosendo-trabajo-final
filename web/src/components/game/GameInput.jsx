@@ -15,6 +15,7 @@ export default function GameInput({ onSubmit, wordLength, loading }) {
         setWord(e.target.value.toUpperCase())
     }
 
+    // solo perimito submit si la longitud de la palabra es correcta
     const isDisabled = loading || word.length !== wordLength
 
     return (

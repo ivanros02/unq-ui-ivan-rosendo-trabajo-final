@@ -91,7 +91,7 @@ export default function Game() {
                             className="btn btn-outline-secondary" 
                             onClick={() => navigate('/')}
                         >
-                            Back to home
+                            Play Again
                         </button>
                     </div>
                 </div>
