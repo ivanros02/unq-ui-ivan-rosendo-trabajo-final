@@ -1,36 +1,24 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { API_ENDPOINTS } from '../utils/constants'
+import { useGame } from '../hook/useGame'
 import DifficultyModal from '../components/DifficultyModal'
 import '../styles/Home.css'
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedDifficulty, setSelectedDifficulty] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
-
-    const handleDifficultySelect = (difficulty) => {
-        setSelectedDifficulty(difficulty)
-    }
+    const { startGame, loading } = useGame()
 
     const handlePlay = async () => {
-        if (!selectedDifficulty) {
+        const success = await startGame(selectedDifficulty)
+        if (!success && !selectedDifficulty) {
             setIsModalOpen(true)
-            return
         }
+    }
 
-        setLoading(true)
-        try {
-            const response = await axios.get(`${API_ENDPOINTS.difficulties}/${selectedDifficulty.id}`)
-            // espero la sesion del juego y envio los datos a /game
-            navigate('/game', { state: { gameSession: response.data } })
-        } catch (error) {
-            console.error('Error creating session:', error)
-        } finally {
-            setLoading(false)
-        }
+    const handleDifficultySelect = async (difficulty) => {
+        setSelectedDifficulty(difficulty)
+        setIsModalOpen(false)
+        await startGame(difficulty)
     }
 
     return (
@@ -63,12 +51,6 @@ export default function Home() {
                             </span>
                         )}
                         {loading ? 'Creating session...' : 'Play'}
-                    </button>
-                    <button
-                        className="btn btn-lg btn-custom-secondary"
-                        onClick={() => setIsModalOpen(true)}
-                    >
-                        {selectedDifficulty ? 'Change difficulty' : 'Select difficulty'}
                     </button>
                 </div>
             </main>

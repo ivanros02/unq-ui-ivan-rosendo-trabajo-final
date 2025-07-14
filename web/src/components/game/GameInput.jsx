@@ -32,8 +32,8 @@ export default function GameInput({ onSubmit, wordLength, loading }) {
                             placeholder={`${wordLength} letters`}
                             disabled={loading}
                         />
-                        <button 
-                            className="btn btn-primary" 
+                        <button
+                            className="btn btn-primary"
                             type="submit"
                             disabled={isDisabled}
                         >

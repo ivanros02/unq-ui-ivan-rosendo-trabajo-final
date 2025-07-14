@@ -1,37 +1,15 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useEffect } from 'react'
+import { useGame } from '../hook/useGame'
 import '../styles/DifficultyModal.css'
-import { API_ENDPOINTS } from '../utils/constants'
 
 export default function DifficultyModal({ isOpen, onClose, onSelect }) {
-  const [difficulties, setDifficulties] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const { difficulties, loading, error, fetchDifficulties } = useGame()
 
   useEffect(() => {
     if (isOpen) {
       fetchDifficulties()
     }
   }, [isOpen])
-
-  const fetchDifficulties = async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const response = await axios.get(API_ENDPOINTS.difficulties)
-      setDifficulties(response.data)
-    } catch (err) {
-      setError('Error al cargar dificultades')
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleSelect = (difficulty) => {
-    onSelect(difficulty)
-    onClose()
-  }
 
   if (!isOpen) return null
 
@@ -65,7 +43,7 @@ export default function DifficultyModal({ isOpen, onClose, onSelect }) {
                   <button
                     key={difficulty.id}
                     className="btn btn-custom-outline"
-                    onClick={() => handleSelect(difficulty)}
+                    onClick={() => onSelect(difficulty)}
                   >
                     {difficulty.name}
                   </button>
